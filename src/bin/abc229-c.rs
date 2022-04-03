@@ -1,16 +1,17 @@
-use proconio::*;
-use superslice::*;
+use proconio::input;
 
 fn main() {
     input! {
         n: usize,
-        q: usize,
-        mut a: [u32; n],
-        x: [u32; q],
+        mut w: u64,
+        mut p: [(u64, u64); n],
     }
-    a.sort();
-    for x in x {
-        let x = a.lower_bound(&x);
-        println!("{}", n - x);
+    p.sort_by_key(|p| !p.0);
+    let mut ans = 0;
+    for (a, b) in p {
+        let v = b.min(w);
+        ans += v * a;
+        w -= v;
     }
+    println!("{}", ans);
 }
